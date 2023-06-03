@@ -33,6 +33,16 @@ function FileList({ contract, account, provider }) {
     };
     // end of blockchain code
 
+    const handleDownload = async (file) => {
+        const response = await fetch(`https://ipfs.io/ipfs/${file.cid}/${file.name}`);
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = file.name;
+        a.click();
+        URL.revokeObjectURL(url);
+    };
 
     const fetchFiles = async () => {
         setIsLoading(true);
@@ -205,6 +215,15 @@ function FileList({ contract, account, provider }) {
                                             target="_blank"
                                         >
                                             Check File
+                                        </Button>
+                                    </Td>
+                                    <Td>
+                                        <Button
+                                            onClick={() => handleDownload(file)}
+                                            colorScheme='blue'
+                                            size='sm'
+                                        >
+                                            Download
                                         </Button>
                                     </Td>
                                 </Tr>
