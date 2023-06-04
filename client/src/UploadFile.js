@@ -25,7 +25,7 @@ import {
     useToast
 } from '@chakra-ui/react'
 
-import {SmallAddIcon} from '@chakra-ui/icons'
+import { SmallAddIcon } from '@chakra-ui/icons'
 import { motion, useAnimation } from "framer-motion";
 
 const first = {
@@ -248,13 +248,13 @@ function UploadFile({ contract, account, provider }) {
                     </AspectRatio>
                 </Stack>
                 <Stack spacing={4} py={4} direction='row' align='center' justify='center'>
-                    <Button 
-                        LeftIcon={isLoading ? <Spinner /> : <SmallAddIcon />}
-                        disabled={isLoading}    
+                    <Button
+                        leftIcon={isLoading ? <Spinner /> : <SmallAddIcon />}
+                        isDisabled={isLoading || file === null}
                         onClick={handleUpload} colorScheme='teal'>
                         Upload File
                     </Button>
-                    
+
                 </Stack>
 
                 <Stack spacing={4} direction='row' align='center' justify='center'>
