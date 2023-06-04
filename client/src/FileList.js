@@ -1,4 +1,4 @@
-import { Button, Center, Heading, Link, Skeleton, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
+import { Button, Center, Heading, Link, Skeleton, Table, TableContainer, Box , Tbody, Td, Th, Thead, Tr , Show, Hide} from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { Web3Storage } from 'web3.storage';
 
@@ -56,100 +56,110 @@ function FileList({ contract, account, provider }) {
                     All files list
                 </Heading>
             </Center>
+            <Box maxWidth="100%">
+                <TableContainer
+                    // add horizonatal margin
+                    mx={4}
+                    my={4}
+                >
+                    <Table variant='striped' size="sm">
+                        <Thead >
+                            <Tr fontSize={"2xl"}>
+                                <Th>Name</Th>
+                                <Hide
+                                    sm
+                                >
+                                    <Th>CID</Th>
+                                    <Th>Size</Th>
+                                    <Th>Timestamp</Th>
+                                </Hide>
+                                <Th>Check File</Th>
+                                <Th>Download File</Th>
 
-            <TableContainer
-                // add horizonatal margin
-                mx={4}
-                my={4}
-            >
-                <Table variant='striped' size={"sm"}>
-                    <Thead >
-                        <Tr fontSize={"2xl"}>
-                            <Th>Name</Th>
-                            <Th>CID</Th>
-                            <Th>Size</Th>
-                            <Th>Timestamp</Th>
-                            <Th>Check File</Th>
+                            </Tr>
+                        </Thead>
 
-                        </Tr>
-                    </Thead>
-
-                    <Tbody>
-                        {isLoading ? (
-                            <>
-                                <Tr>
-                                    <Td><Skeleton height='20px' /></Td>
-                                    <Td><Skeleton height='20px' /></Td>
-                                    <Td><Skeleton height='20px' /></Td>
-                                    <Td><Skeleton height='20px' /></Td>
-                                    <Td><Skeleton height='20px' /></Td>
-                                </Tr>
-                                <Tr>
-                                    <Td><Skeleton height='20px' /></Td>
-                                    <Td><Skeleton height='20px' /></Td>
-                                    <Td><Skeleton height='20px' /></Td>
-                                    <Td><Skeleton height='20px' /></Td>
-                                    <Td><Skeleton height='20px' /></Td>
-                                </Tr>
-                                <Tr>
-                                    <Td><Skeleton height='20px' /></Td>
-                                    <Td><Skeleton height='20px' /></Td>
-                                    <Td><Skeleton height='20px' /></Td>
-                                    <Td><Skeleton height='20px' /></Td>
-                                    <Td><Skeleton height='20px' /></Td>
-                                </Tr>
-                                <Tr>
-                                    <Td><Skeleton height='20px' /></Td>
-                                    <Td><Skeleton height='20px' /></Td>
-                                    <Td><Skeleton height='20px' /></Td>
-                                    <Td><Skeleton height='20px' /></Td>
-                                    <Td><Skeleton height='20px' /></Td>
-                                </Tr>
-                            </>
-                        )
-                            : null
-                        }
-                        {!isLoading &&
-                            files?.map((file, index) => (
-                                <Tr key={index}>
-                                    <Td>{file.name}</Td>
-                                    <Td>
-                                        <Link
-                                            href={`https://ipfs.io/ipfs/${file.cid}`}
-                                            isExternal
+                        <Tbody>
+                            {isLoading ? (
+                                <>
+                                    <Tr>
+                                        <Td><Skeleton height='20px' /></Td>
+                                        <Td><Skeleton height='20px' /></Td>
+                                        <Td><Skeleton height='20px' /></Td>
+                                        <Td><Skeleton height='20px' /></Td>
+                                        <Td><Skeleton height='20px' /></Td>
+                                    </Tr>
+                                    <Tr>
+                                        <Td><Skeleton height='20px' /></Td>
+                                        <Td><Skeleton height='20px' /></Td>
+                                        <Td><Skeleton height='20px' /></Td>
+                                        <Td><Skeleton height='20px' /></Td>
+                                        <Td><Skeleton height='20px' /></Td>
+                                    </Tr>
+                                    <Tr>
+                                        <Td><Skeleton height='20px' /></Td>
+                                        <Td><Skeleton height='20px' /></Td>
+                                        <Td><Skeleton height='20px' /></Td>
+                                        <Td><Skeleton height='20px' /></Td>
+                                        <Td><Skeleton height='20px' /></Td>
+                                    </Tr>
+                                    <Tr>
+                                        <Td><Skeleton height='20px' /></Td>
+                                        <Td><Skeleton height='20px' /></Td>
+                                        <Td><Skeleton height='20px' /></Td>
+                                        <Td><Skeleton height='20px' /></Td>
+                                        <Td><Skeleton height='20px' /></Td>
+                                    </Tr>
+                                </>
+                            )
+                                : null
+                            }
+                            {!isLoading &&
+                                files?.map((file, index) => (
+                                    <Tr key={index}>
+                                        <Td>{file.name}</Td>
+                                        <Hide
+                                            sm
                                         >
-                                            {file.cid}
-                                        </Link>
-                                    </Td>
-                                    <Td>{(file.dagSize / (1024 * 1024)).toFixed(2)} MB</Td>
-                                    <Td>{new Date(file.created).toLocaleString()}</Td>
-                                    <Td>
-                                        {/* button which routes to href={`https://ipfs.io/ipfs/${file.cid}`} */}
-                                        <Button
-                                            as={Link}
-                                            href={`https://ipfs.io/ipfs/${file.cid}/${file.name}`}
-                                            colorScheme='teal'
-                                            size={"sm"}
-                                            target="_blank"
-                                        >
-                                            Check File
-                                        </Button>
-                                    </Td>
-                                    <Td>
-                                        <Button
-                                            onClick={() => handleDownload(file)}
-                                            colorScheme='blue'
-                                            size='sm'
-                                        >
-                                            Download
-                                        </Button>
-                                    </Td>
-                                </Tr>
-                            ))
-                        }
-                    </Tbody>
-                </Table>
-            </TableContainer>
+                                        <Td>
+                                            <Link
+                                                href={`https://ipfs.io/ipfs/${file.cid}`}
+                                                isExternal
+                                            >
+                                                {file.cid}
+                                            </Link>
+                                        </Td>
+                                        <Td>{(file.dagSize / (1024 * 1024)).toFixed(2)} MB</Td>
+                                        <Td>{new Date(file.created).toLocaleString()}</Td>
+                                        </Hide>
+                                        <Td>
+                                            {/* button which routes to href={`https://ipfs.io/ipfs/${file.cid}`} */}
+                                            <Button
+                                                as={Link}
+                                                href={`https://ipfs.io/ipfs/${file.cid}/${file.name}`}
+                                                colorScheme='teal'
+                                                size={"sm"}
+                                                target="_blank"
+                                            >
+                                                Check File
+                                            </Button>
+                                        </Td>
+                                        <Td>
+                                            <Button
+                                                onClick={() => handleDownload(file)}
+                                                colorScheme='blue'
+                                                size='sm'
+                                            >
+                                                Download
+                                            </Button>
+                                        </Td>
+                                    </Tr>
+                                ))
+                            }
+                        </Tbody>
+                    </Table>
+                </TableContainer>
+            </Box>
         </>
     );
 }
