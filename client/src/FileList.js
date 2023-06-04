@@ -14,7 +14,6 @@ function FileList({ contract, account, provider }) {
     const getdata = async () => {
         let dataArray2;
         console.log(account)
-        // const Otheraddress = "";
         dataArray2 = await contract.display(account);
         setDataArray(dataArray2)
         try {
@@ -65,7 +64,6 @@ function FileList({ contract, account, provider }) {
     };
 
     useEffect(() => {
-        console.log("yoo");
         fetchFiles();
     }, []);
 

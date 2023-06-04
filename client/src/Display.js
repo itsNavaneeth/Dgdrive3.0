@@ -1,15 +1,25 @@
 import { useState } from "react";
-import { Button, Center, Heading, Link, Skeleton, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
-
+import { Box, Button, Center, Heading, Link, Skeleton, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
+import {
+  FormControl,
+  FormLabel,
+  Input,
+  FormErrorMessage,
+  FormHelperText,
+} from '@chakra-ui/react'
 // import "./Display.css";
 const Display = ({ contract, account }) => {
+  const [address, setAddress] = useState("");
+  const handleAddressChange = (event) => {
+    setAddress(event.target.value);
+  };
   const [data, setData] = useState("");
   const getdata = async () => {
     let dataArray;
-    const Otheraddress = document.querySelector(".address").value;
+    
     try {
-      if (Otheraddress) {
-        dataArray = await contract.display(Otheraddress);
+      if (address) {
+        dataArray = await contract.display(address);
         console.log("da: ", dataArray);
       } else {
         dataArray = await contract.display(account);
@@ -27,7 +37,7 @@ const Display = ({ contract, account }) => {
       const images = str_array.map((item, i) => {
         return (
           <>
-            <a href={item} key={i} target="_blank">
+            <a href={item} key={i} target="_blank" rel="noreferrer">
               <img
                 key={i}
                 src={`https:${item.substring(6)}`}
@@ -106,15 +116,25 @@ const Display = ({ contract, account }) => {
   };
   return (
     <>
-      <div className="image-list">{data}</div>
-      <input
-        type="text"
-        placeholder="Enter Address"
-        className="address"
-      ></input>
-      <button className="center button" onClick={getdata}>
-        Get Data
-      </button>
+     <Box p={4}>
+      {/* add a formcotnrol  */}
+      <FormControl>
+        <FormLabel>Account Address</FormLabel>
+        <Input
+        size={"md"}
+          placeholder="Enter account address"
+          value={address}
+          onChange={handleAddressChange}
+        />
+        <Button
+          colorScheme="yellow"
+          mt={4}
+          onClick={getdata}
+        >
+          Get Data
+        </Button>
+      </FormControl>
+     </Box>
     </>
   );
 };

@@ -7,13 +7,16 @@ import Navbar from './Navbar';
 import UploadFile from './UploadFile';
 import Upload from "./artifacts/contracts/Upload.sol/Upload.json";
 import Display from './Display';
-import Modal from './Modal';
+import { useDisclosure} from '@chakra-ui/react';
+// import Modal from './Modal';
+import Share from './Share';
 
 function App() {
   const [account, setAccount] = useState("");
   const [contract, setContract] = useState(null);
   const [provider, setProvider] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   useEffect(() => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -59,15 +62,10 @@ function App() {
         provider={provider}
         contract={contract}
       />
-      {!modalOpen && (
-        <button className="share" onClick={() => setModalOpen(true)}>
-          Share
-        </button>
-      )}
-      {modalOpen && (
-        <Modal setModalOpen={setModalOpen} contract={contract}></Modal>
-      )}
+
+      <Share contract={contract}/>
       <Display contract={contract} account={account}></Display>
+      
       <FileList
         provider={provider}
         contract={contract}
