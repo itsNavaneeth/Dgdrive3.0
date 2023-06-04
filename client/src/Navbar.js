@@ -1,9 +1,11 @@
 import React, { ReactNode } from 'react';
-import { IconButton, Avatar, Box, CloseButton, Flex, HStack, VStack, Icon, useColorModeValue, Link, Drawer, DrawerContent, Text, useDisclosure, BoxProps, FlexProps, Menu, MenuButton, MenuDivider, MenuItem, MenuList } from '@chakra-ui/react';
+import {
+  Button, IconButton, Avatar, Box, CloseButton, Flex, HStack, VStack, Icon, useColorModeValue, useColorMode, Link, Drawer, DrawerContent, Text, useDisclosure, BoxProps, FlexProps, Menu, MenuButton, MenuDivider, MenuItem, MenuList
+} from '@chakra-ui/react';
 import { FiHome, FiTrendingUp, FiCompass, FiStar, FiSettings, FiMenu, FiBell, FiChevronDown } from 'react-icons/fi';
 import { IconType } from 'react-icons';
-import {BsFiles,BsFillPeopleFill} from 'react-icons/bs';
-import {AiOutlinePlus} from 'react-icons/ai';
+import { BsFiles, BsFillPeopleFill } from 'react-icons/bs';
+import { AiOutlinePlus } from 'react-icons/ai';
 import { ReactText } from 'react';
 
 const LinkItems = [
@@ -102,6 +104,9 @@ const NavItem = ({ icon, children, ...rest }) => {
 };
 
 const MobileNav = ({ onOpen, ...rest }) => {
+  const { colorMode, toggleColorMode } = useColorMode()
+  console.log(colorMode);
+  console.log(toggleColorMode);
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -143,6 +148,9 @@ const MobileNav = ({ onOpen, ...rest }) => {
               transition="all 0.3s"
               _focus={{ boxShadow: 'none' }}>
               <HStack>
+                <Button onClick={toggleColorMode}>
+                  Toggle {colorMode === 'light' ? 'dark' : 'Light'}
+                </Button>
                 <Avatar
                   size={'sm'}
                   src={

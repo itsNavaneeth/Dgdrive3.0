@@ -1,4 +1,4 @@
-import { ChakraProvider } from '@chakra-ui/react';
+import { ChakraProvider, ColorModeScript } from '@chakra-ui/react';
 import { ethers } from "ethers";
 import React, { useEffect, useState } from 'react';
 import './App.css';
@@ -9,13 +9,13 @@ import Upload from "./artifacts/contracts/Upload.sol/Upload.json";
 import Display from './Display';
 import Layout from './Layout';
 
-import { useDisclosure,extendTheme} from '@chakra-ui/react';
+import { useDisclosure, extendTheme } from '@chakra-ui/react';
 // import Modal from './Modal';
 import Share from './Share';
 
 function App() {
   const [account, setAccount] = useState("");
-  const [Accounts , setAccounts] = useState([]); 
+  const [Accounts, setAccounts] = useState([]);
   const [contract, setContract] = useState(null);
   const [provider, setProvider] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
@@ -63,26 +63,26 @@ function App() {
   return (
     // 2. Wrap ChakraProvider at the root of your app
     <ChakraProvider theme={extendTheme({
-      config:{
-      useSystemColorMode: false,
-      initialColorMode: "dark"
+      config: {
+        useSystemColorMode: false,
+        initialColorMode: "dark"
       }
-  })}>
+    })}>
       <Layout>
-      <UploadFile
-        account={account}
-        provider={provider}
-        contract={contract}
-      />
+        <UploadFile
+          account={account}
+          provider={provider}
+          contract={contract}
+        />
 
-      <Share contract={contract}/>
-      <Display contract={contract} account={account}></Display>
+        <Share contract={contract} />
+        <Display contract={contract} account={account}></Display>
 
-      <FileList
-        provider={provider}
-        contract={contract}
-        account={account}
-      />
+        <FileList
+          provider={provider}
+          contract={contract}
+          account={account}
+        />
       </Layout>
     </ChakraProvider>
   );
