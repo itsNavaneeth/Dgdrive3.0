@@ -1,12 +1,10 @@
-import { ChakraProvider } from '@chakra-ui/react';
-import { ethers } from "ethers";
-import React, { useEffect, useState } from 'react';
-import './App.css';
-import FileList from './FileList';
-import Navbar from './Navbar';
-import UploadFile from './UploadFile';
 import Upload from "./artifacts/contracts/Upload.sol/Upload.json";
-import Display from './Display';
+import { useState, useEffect } from "react";
+import { ethers } from "ethers";
+import FileUpload from "./components/FileUpload";
+import Display from "./components/Display";
+import Modal from "./components/Modal";
+import "./App.css";
 
 function App() {
   const [account, setAccount] = useState("");
@@ -42,29 +40,38 @@ function App() {
         setProvider(provider);
       } else {
         console.error("Metamask is not installed");
-        alert("Metamask is not installed");
       }
     };
     provider && loadProvider();
   }, []);
-
   return (
-    // 2. Wrap ChakraProvider at the root of your app
-    <ChakraProvider>
-      <Navbar
-      />
-      <UploadFile
-        account={account}
-        provider={provider}
-        contract={contract}
-      />
-      {/* <Display contract={contract} account={account}></Display> */}
-      <FileList
-        provider={provider}
-        contract={contract}
-        account={account}
-      />
-    </ChakraProvider>
+    <>
+      {!modalOpen && (
+        <button className="share" onClick={() => setModalOpen(true)}>
+          Share
+        </button>
+      )}
+      {modalOpen && (
+        <Modal setModalOpen={setModalOpen} contract={contract}></Modal>
+      )}
+
+      <div className="App">
+        <h1 style={{ color: "white" }}>Gdrive 3.0</h1>
+        <div class="bg"></div>
+        <div class="bg bg2"></div>
+        <div class="bg bg3"></div>
+
+        <p style={{ color: "white" }}>
+          Account : {account ? account : "Not connected"}
+        </p>
+        <FileUpload
+          account={account}
+          provider={provider}
+          contract={contract}
+        ></FileUpload>
+        <Display contract={contract} account={account}></Display>
+      </div>
+    </>
   );
 }
 
