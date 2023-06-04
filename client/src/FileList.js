@@ -103,7 +103,7 @@ function FileList({ contract, account, provider }) {
 
                     <Tbody>
                         {
-                            dataArray.map(([string1, string2]) => (
+                            dataArray?.map(([string1, string2]) => (
                                 <Tr>
                                     <Td>{string1}</Td>
                                     <Td>
@@ -192,7 +192,7 @@ function FileList({ contract, account, provider }) {
                             : null
                         }
                         {!isLoading &&
-                            files.map((file, index) => (
+                            files?.map((file, index) => (
                                 <Tr key={index}>
                                     <Td>{file.name}</Td>
                                     <Td>
