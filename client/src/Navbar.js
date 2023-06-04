@@ -143,14 +143,14 @@ const MobileNav = ({ onOpen, ...rest }) => {
         />
         <Flex alignItems={'center'}>
           <Menu>
+            <Button onClick={toggleColorMode}>
+              Toggle {colorMode === 'light' ? 'dark' : 'Light'}
+            </Button>
             <MenuButton
               py={2}
               transition="all 0.3s"
               _focus={{ boxShadow: 'none' }}>
               <HStack>
-                <Button onClick={toggleColorMode}>
-                  Toggle {colorMode === 'light' ? 'dark' : 'Light'}
-                </Button>
                 <Avatar
                   size={'sm'}
                   src={
