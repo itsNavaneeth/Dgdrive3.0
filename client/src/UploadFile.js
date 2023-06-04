@@ -21,10 +21,11 @@ import {
     TableCaption,
     TableContainer,
     Link,
-    Spinner
+    Spinner,
+    useToast
 } from '@chakra-ui/react'
 
-import {SmallAddIcon} from '@chakra-ui/icons'
+import { SmallAddIcon } from '@chakra-ui/icons'
 import { motion, useAnimation } from "framer-motion";
 
 const first = {
@@ -123,6 +124,7 @@ const PreviewImage = forwardRef((props, ref) => {
 
 
 function UploadFile({ contract, account, provider }) {
+    const toast = useToast()
 
     const controls = useAnimation();
     const startAnimation = () => controls.start("hover");
@@ -148,13 +150,19 @@ function UploadFile({ contract, account, provider }) {
             setFiles([...files, fileMetadata]);
             setError(null);
             setIsLoading(false);
-            const ImgHash = `https://ipfs.io/ipfs/${cid}`
-            // contract.add(account, ImgHash);
-            contract.add(account, file.name, ImgHash);
-            alert("Successfully Image Uploaded");
+            const fileHash = `https://ipfs.io/ipfs/${cid}`
+            contract.add(account, file.name, fileHash);
+            toast({
+                position: 'top',
+                title: 'File Uploaded Successfully',
+                status: 'success',
+                duration: 9000,
+                isClosable: true,
+            })
         } catch (error) {
             setIsLoading(false);
             setError(error.message);
+
         }
     };
 
@@ -240,13 +248,13 @@ function UploadFile({ contract, account, provider }) {
                     </AspectRatio>
                 </Stack>
                 <Stack spacing={4} py={4} direction='row' align='center' justify='center'>
-                    <Button 
-                        LeftIcon={isLoading ? <Spinner /> : <SmallAddIcon />}
-                        isDisabled={isLoading || file===null}    
+                    <Button
+                        leftIcon={isLoading ? <Spinner /> : <SmallAddIcon />}
+                        isDisabled={isLoading || file === null}
                         onClick={handleUpload} colorScheme='teal'>
                         Upload File
                     </Button>
-                    
+
                 </Stack>
 
                 <Stack spacing={4} direction='row' align='center' justify='center'>
