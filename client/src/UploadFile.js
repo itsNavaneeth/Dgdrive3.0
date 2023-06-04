@@ -21,7 +21,8 @@ import {
     TableCaption,
     TableContainer,
     Link,
-    Spinner
+    Spinner,
+    useToast
 } from '@chakra-ui/react'
 import { motion, useAnimation } from "framer-motion";
 
@@ -121,6 +122,7 @@ const PreviewImage = forwardRef((props, ref) => {
 
 
 function UploadFile({ contract, account, provider }) {
+    const toast = useToast()
 
     const controls = useAnimation();
     const startAnimation = () => controls.start("hover");
@@ -146,13 +148,19 @@ function UploadFile({ contract, account, provider }) {
             setFiles([...files, fileMetadata]);
             setError(null);
             setIsLoading(false);
-            const ImgHash = `https://ipfs.io/ipfs/${cid}`
-            // contract.add(account, ImgHash);
-            contract.add(account, file.name, ImgHash);
-            alert("Successfully Image Uploaded");
+            const fileHash = `https://ipfs.io/ipfs/${cid}`
+            contract.add(account, file.name, fileHash);
+            toast({
+                position: 'top',
+                title: 'File Uploaded Successfully',
+                status: 'success',
+                duration: 9000,
+                isClosable: true,
+            })
         } catch (error) {
             setIsLoading(false);
             setError(error.message);
+
         }
     };
 
