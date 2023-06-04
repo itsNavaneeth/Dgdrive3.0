@@ -13,10 +13,12 @@ import Share from './Share';
 
 function App() {
   const [account, setAccount] = useState("");
+  const [Accounts , setAccounts] = useState([]); 
   const [contract, setContract] = useState(null);
   const [provider, setProvider] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const prov = new ethers.providers.Web3Provider(window.ethereum);
 
   useEffect(() => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -30,9 +32,12 @@ function App() {
         window.ethereum.on("accountsChanged", () => {
           window.location.reload();
         });
+
+        // console.log(window.ethereum);
         await provider.send("eth_requestAccounts", []);
         const signer = provider.getSigner();
         const address = await signer.getAddress();
+
         setAccount(address);
         let contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
@@ -51,6 +56,7 @@ function App() {
     };
     provider && loadProvider();
   }, []);
+
 
   return (
     // 2. Wrap ChakraProvider at the root of your app

@@ -242,7 +242,7 @@ function UploadFile({ contract, account, provider }) {
                 <Stack spacing={4} py={4} direction='row' align='center' justify='center'>
                     <Button 
                         LeftIcon={isLoading ? <Spinner /> : <SmallAddIcon />}
-                        disabled={isLoading}    
+                        isDisabled={isLoading || file===null}    
                         onClick={handleUpload} colorScheme='teal'>
                         Upload File
                     </Button>
