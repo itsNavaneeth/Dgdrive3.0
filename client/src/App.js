@@ -7,7 +7,7 @@ import Navbar from './Navbar';
 import UploadFile from './UploadFile';
 import Upload from "./artifacts/contracts/Upload.sol/Upload.json";
 import Display from './Display';
-import { useDisclosure} from '@chakra-ui/react';
+import { useDisclosure,extendTheme} from '@chakra-ui/react';
 // import Modal from './Modal';
 import Share from './Share';
 
@@ -54,7 +54,12 @@ function App() {
 
   return (
     // 2. Wrap ChakraProvider at the root of your app
-    <ChakraProvider>
+    <ChakraProvider theme={extendTheme({
+      config:{
+      useSystemColorMode: false,
+      initialColorMode: "dark"
+      }
+  })}>
       <Navbar
       />
       <UploadFile
@@ -65,7 +70,7 @@ function App() {
 
       <Share contract={contract}/>
       <Display contract={contract} account={account}></Display>
-      
+
       <FileList
         provider={provider}
         contract={contract}
