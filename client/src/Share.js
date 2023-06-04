@@ -11,7 +11,7 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Select,
+  Tooltip,
   Stack,
 } from "@chakra-ui/react";
 
@@ -44,12 +44,15 @@ const MyModalComponent = ({contract}) => {
 
   return (
     <Box p={4}>
-        <Button 
-            onClick={handleOpenModal}
-            colorScheme="purple"
-        >
-            Share Files
-        </Button>
+        <Tooltip label="Click to Share your drive">
+            <Button 
+                onClick={handleOpenModal}
+                colorScheme="purple"
+            >
+                Share Files
+            </Button>
+        </Tooltip>
+        
 
       <Modal isOpen={isOpen} onClose={handleCloseModal} size="xl">
         <ModalOverlay />
