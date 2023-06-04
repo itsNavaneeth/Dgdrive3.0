@@ -1,17 +1,26 @@
 import { ChakraProvider, ColorModeScript } from '@chakra-ui/react';
 import { ethers } from "ethers";
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useNavigation } from 'react';
 import './App.css';
 import FileList from './FileList';
 import Navbar from './Navbar';
-import UploadFile from './UploadFile';
+// import UploadFile from './UploadFile';
 import Upload from "./artifacts/contracts/Upload.sol/Upload.json";
 import Display from './Display';
 import Layout from './Layout';
+import { Route, Routes } from "react-router-dom";
+
 
 import { useDisclosure, extendTheme } from '@chakra-ui/react';
 // import Modal from './Modal';
 import Share from './Share';
+import Dashboard from './pages/Dashboard';
+import Contact from './pages/Contact';
+import UploadFile from './pages/UploadFile';
+import MyFiles from './pages/MyFiles';
+import SharedFiles from './pages/SharedFiles';
+import Peers from './pages/Peers';
+import About from './pages/About';
 
 function App() {
   const [account, setAccount] = useState("");
@@ -62,28 +71,45 @@ function App() {
 
   return (
     // 2. Wrap ChakraProvider at the root of your app
+
     <ChakraProvider theme={extendTheme({
       config: {
         useSystemColorMode: false,
         initialColorMode: "dark"
       }
     })}>
-      <Layout>
-        <UploadFile
-          account={account}
-          provider={provider}
-          contract={contract}
-        />
+      <Routes>
+        <Route path="/" element={<Navbar />}>
+          <Route path="upload" element={
+            <UploadFile
+              account={account}
+              provider={provider}
+              contract={contract}
+            />} />
+          <Route path="" element={<Dashboard />} />
+          <Route path="my-files" element={<MyFiles contract={contract} account={account} />} />
+          <Route path="shared-files" element={<SharedFiles contract={contract} account={account} />} />
+          <Route path="my-peers" element={<Peers contract={contract} account={account} />} />
+          <Route path="about" element={<About />} />
+        </Route>
 
-        <Share contract={contract} />
-        <Display contract={contract} account={account}></Display>
+        {/* <Layout>
+          <UploadFile
+            account={account}
+            provider={provider}
+            contract={contract}
+          />
 
-        <FileList
-          provider={provider}
-          contract={contract}
-          account={account}
-        />
-      </Layout>
+          <Share contract={contract} />
+          <Display contract={contract} account={account}></Display>
+
+          <FileList
+            provider={provider}
+            contract={contract}
+            account={account}
+          />
+        </Layout> */}
+      </Routes>
     </ChakraProvider>
   );
 }

@@ -185,6 +185,7 @@ function UploadFile({ contract, account, provider }) {
                         fontSize="md"
                         fontFamily="monospace"
                         fontWeight="bold"
+                        mb="8"
                     >
                         {account}
                     </Text>
@@ -226,7 +227,7 @@ function UploadFile({ contract, account, provider }) {
                                         justify="center"
                                         spacing="4"
                                     >
-                                        {/* <Box height="16" width="12" position="relative">
+                                        <Box height="16" width="12" position="relative">
                                             <PreviewImage
                                                 variants={first}
                                                 backgroundImage="url('https://images.unsplash.com/photo-1531390658120-e06b58d826ea?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=389&q=80')"
@@ -239,7 +240,7 @@ function UploadFile({ contract, account, provider }) {
                                                 variants={third}
                                                 backgroundImage={`url("https://images.unsplash.com/photo-1626908013351-800ddd734b8a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=386&q=80")`}
                                             />
-                                        </Box> */}
+                                        </Box>
                                         <Stack p="8" textAlign="center" spacing="1">
                                             <Heading fontSize="lg" color="gray.700" fontWeight="bold">
                                                 Upload your file here

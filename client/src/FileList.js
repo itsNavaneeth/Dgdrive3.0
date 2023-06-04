@@ -1,4 +1,4 @@
-import { Button, Center, Heading, Link, Skeleton, Table, TableContainer, Box , Tbody, Td, Th, Thead, Tr , Show, Hide} from '@chakra-ui/react';
+import { Button, Center, Heading, Link, Skeleton, Table, TableContainer, Box, Tbody, Td, Th, Thead, Tr, Show, Hide } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { Web3Storage } from 'web3.storage';
 
@@ -121,16 +121,16 @@ function FileList({ contract, account, provider }) {
                                         <Hide
                                             sm
                                         >
-                                        <Td>
-                                            <Link
-                                                href={`https://ipfs.io/ipfs/${file.cid}`}
-                                                isExternal
-                                            >
-                                                {file.cid}
-                                            </Link>
-                                        </Td>
-                                        <Td>{(file.dagSize / (1024 * 1024)).toFixed(2)} MB</Td>
-                                        <Td>{new Date(file.created).toLocaleString()}</Td>
+                                            <Td>
+                                                <Link
+                                                    href={`https://ipfs.io/ipfs/${file.cid}`}
+                                                    isExternal
+                                                >
+                                                    {file.cid}
+                                                </Link>
+                                            </Td>
+                                            <Td>{(file.dagSize / (1024 * 1024)).toFixed(2)} MB</Td>
+                                            <Td>{new Date(file.created).toLocaleString()}</Td>
                                         </Hide>
                                         <Td>
                                             {/* button which routes to href={`https://ipfs.io/ipfs/${file.cid}`} */}

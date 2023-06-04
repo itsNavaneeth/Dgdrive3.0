@@ -13,7 +13,12 @@ contract Upload {
         string url2;
     }
 
+    struct UrlObject2 {
+        string url1;
+    }
+
     mapping(address => UrlObject[]) value;
+    mapping(address => UrlObject2[]) peerValue;
     mapping(address => mapping(address => bool)) ownership;
     mapping(address => Access[]) accessList;
     mapping(address => mapping(address => bool)) previousData;
@@ -25,6 +30,12 @@ contract Upload {
     ) external {
         UrlObject memory newObject = UrlObject(url1, url2);
         value[_user].push(newObject);
+    }
+
+    // New function to add peer URL
+    function addPeer(address _user, string memory peerUrl1) external {
+        UrlObject2 memory newObject = UrlObject2(peerUrl1);
+        peerValue[_user].push(newObject);
     }
 
     function allow(address user) external {
@@ -56,6 +67,13 @@ contract Upload {
             "You don't have access"
         );
         return value[_user];
+    }
+
+    // New function to display peer URLs
+    function displayPeers(
+        address _user
+    ) external view returns (Access[] memory) {
+        return accessList[_user];
     }
 
     function shareAccess() public view returns (Access[] memory) {

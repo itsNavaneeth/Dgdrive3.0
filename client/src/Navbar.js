@@ -3,17 +3,22 @@ import {
   Button, IconButton, Avatar, Box, CloseButton, Flex, HStack, VStack, Icon, useColorModeValue, useColorMode, Link, Drawer, DrawerContent, Text, useDisclosure, BoxProps, FlexProps, Menu, MenuButton, MenuDivider, MenuItem, MenuList
 } from '@chakra-ui/react';
 import { FiHome, FiTrendingUp, FiCompass, FiStar, FiSettings, FiMenu, FiBell, FiChevronDown } from 'react-icons/fi';
-import {FiSun} from 'react-icons/fi';
-import {BsFillMoonFill} from 'react-icons/bs';
+import { FiSun } from 'react-icons/fi';
+import { BsFillMoonFill } from 'react-icons/bs';
 import { BsFiles, BsFillPeopleFill } from 'react-icons/bs';
+import { FaShareAlt, FaServer } from 'react-icons/fa';
 import { AiOutlinePlus } from 'react-icons/ai';
+import { MdInfo } from 'react-icons/md';
+import { TiPlus } from 'react-icons/ti';
+import { Link as Navlink, Outlet, useLocation } from "react-router-dom"
 
 
 const LinkItems = [
-  { name: 'Upload', icon: AiOutlinePlus },
-  { name: 'My Files', icon: BsFiles },
-  { name: 'Shared With Me', icon: BsFillPeopleFill },
-  { name: 'Contact', icon: FiCompass },
+  { name: 'Upload', icon: TiPlus, to: "/upload" },
+  { name: 'My Files', icon: FaServer, to: "/my-files" },
+  { name: 'Shared With Me', icon: FaShareAlt, to: "/shared-files" },
+  { name: 'My Peers', icon: BsFillPeopleFill, to: "my-peers" },
+  { name: 'About', icon: MdInfo, to: "about" },
 ];
 
 export default function SidebarWithHeader({
@@ -42,12 +47,14 @@ export default function SidebarWithHeader({
       <MobileNav onOpen={onOpen} />
       <Box ml={{ base: 0, md: 60 }} p="4">
         {children}
+        <Outlet />
       </Box>
     </Box>
   );
 }
 
 const SidebarContent = ({ onClose, ...rest }) => {
+  const pa = useLocation();
   return (
     <Box
       transition="3s ease"
@@ -59,13 +66,20 @@ const SidebarContent = ({ onClose, ...rest }) => {
       h="full"
       {...rest}>
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          Krypton
-        </Text>
+        <Link
+          // as={Navlink}
+          href="/"
+          style={{ textDecoration: 'none' }}
+        // to="/"
+        >
+          <Text decoration="none" fontSize="2xl" fontFamily="monospace" fontWeight="bold">
+            Krypton
+          </Text>
+        </Link>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
+        <NavItem key={link.name} icon={link.icon} to={link.to} isActive={pa.pathname === link.to}>
           {link.name}
         </NavItem>
       ))}
@@ -73,9 +87,21 @@ const SidebarContent = ({ onClose, ...rest }) => {
   );
 };
 
-const NavItem = ({ icon, children, ...rest }) => {
+const NavItem = ({ to, icon, children, isActive, ...rest }) => {
+  const activeStyles = {
+    bg: 'purple.600',
+    color: 'white',
+  };
+  const hoverStyles = {
+    bg: 'gray.800',
+    color: 'white',
+  };
   return (
-    <Link href="#" style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
+    <Link
+      as={Navlink}
+      to={to}
+      style={{ textDecoration: 'none' }}
+      _focus={{ boxShadow: 'none' }}>
       <Flex
         align="center"
         p="4"
@@ -83,10 +109,8 @@ const NavItem = ({ icon, children, ...rest }) => {
         borderRadius="lg"
         role="group"
         cursor="pointer"
-        _hover={{
-          bg: 'purple.600',
-          color: 'white',
-        }}
+        _hover={hoverStyles}
+        {...(isActive && activeStyles)}
         {...rest}>
         {icon && (
           <Icon
@@ -106,8 +130,6 @@ const NavItem = ({ icon, children, ...rest }) => {
 
 const MobileNav = ({ onOpen, ...rest }) => {
   const { colorMode, toggleColorMode } = useColorMode()
-  console.log(colorMode);
-  console.log(toggleColorMode);
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -136,9 +158,9 @@ const MobileNav = ({ onOpen, ...rest }) => {
       </Text>
 
       <HStack spacing={{ base: '0', md: '6' }}>
-      <IconButton onClick={toggleColorMode} mx={2} isRound>
-              {colorMode === "light" ? <BsFillMoonFill />:<FiSun />}
-            </IconButton>
+        <IconButton onClick={toggleColorMode} mx={2} isRound>
+          {colorMode === "light" ? <BsFillMoonFill /> : <FiSun />}
+        </IconButton>
         <Flex alignItems={'center'}>
           <Menu>
             <MenuButton
@@ -148,7 +170,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
               <HStack>
                 <Avatar
                   size={'sm'}
-                  
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg/330px-Elon_Musk_Royal_Society_%28crop2%29.jpg"
                 />
                 <VStack
                   display={{ base: 'none', md: 'flex' }}
