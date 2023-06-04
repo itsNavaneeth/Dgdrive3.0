@@ -44,7 +44,12 @@ const MyModalComponent = ({contract}) => {
 
   return (
     <Box p={4}>
-      <Button onClick={handleOpenModal}>Share Files</Button>
+        <Button 
+            onClick={handleOpenModal}
+            colorScheme="purple"
+        >
+            Share Files
+        </Button>
 
       <Modal isOpen={isOpen} onClose={handleCloseModal} size="xl">
         <ModalOverlay />
