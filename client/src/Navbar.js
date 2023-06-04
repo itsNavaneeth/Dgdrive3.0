@@ -3,10 +3,11 @@ import {
   Button, IconButton, Avatar, Box, CloseButton, Flex, HStack, VStack, Icon, useColorModeValue, useColorMode, Link, Drawer, DrawerContent, Text, useDisclosure, BoxProps, FlexProps, Menu, MenuButton, MenuDivider, MenuItem, MenuList
 } from '@chakra-ui/react';
 import { FiHome, FiTrendingUp, FiCompass, FiStar, FiSettings, FiMenu, FiBell, FiChevronDown } from 'react-icons/fi';
-import { IconType } from 'react-icons';
+import {FiSun} from 'react-icons/fi';
+import {BsFillMoonFill} from 'react-icons/bs';
 import { BsFiles, BsFillPeopleFill } from 'react-icons/bs';
 import { AiOutlinePlus } from 'react-icons/ai';
-import { ReactText } from 'react';
+
 
 const LinkItems = [
   { name: 'Upload', icon: AiOutlinePlus },
@@ -135,17 +136,11 @@ const MobileNav = ({ onOpen, ...rest }) => {
       </Text>
 
       <HStack spacing={{ base: '0', md: '6' }}>
-        <IconButton
-          size="lg"
-          variant="ghost"
-          aria-label="open menu"
-          icon={<FiBell />}
-        />
+      <IconButton onClick={toggleColorMode} mx={2} isRound>
+              {colorMode === "light" ? <BsFillMoonFill />:<FiSun />}
+            </IconButton>
         <Flex alignItems={'center'}>
           <Menu>
-            <Button onClick={toggleColorMode}>
-              Toggle {colorMode === 'light' ? 'dark' : 'Light'}
-            </Button>
             <MenuButton
               py={2}
               transition="all 0.3s"
