@@ -7,30 +7,6 @@ function FileList({ contract, account, provider }) {
     const [files, setFiles] = useState(null);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
-    const [dataArray, setDataArray] = useState([]);
-
-    // blockchain code
-    const [data, setData] = useState("");
-    const getdata = async () => {
-        let dataArray2;
-        console.log(account)
-        dataArray2 = await contract.display(account);
-        setDataArray(dataArray2)
-        try {
-            console.log(dataArray);
-
-            // if (Otheraddress) {
-            //     dataArray = await contract.display(Otheraddress);
-            //     console.log(dataArray);
-            // } else {
-            //     dataArray = await contract.display(account);
-            // }
-
-        } catch (e) {
-            alert("You don't have access");
-        }
-    };
-    // end of blockchain code
 
     const handleDownload = async (file) => {
         const response = await fetch(`https://ipfs.io/ipfs/${file.cid}/${file.name}`);
@@ -68,68 +44,12 @@ function FileList({ contract, account, provider }) {
     }, []);
 
     return (
-        <div>
+        <>
             <Center>
-                <Button onClick={getdata} colorScheme='teal' mx={3}>
-                    Refresh Blockchain List
-                </Button>
                 <Button onClick={fetchFiles} colorScheme='teal' mx={3}>
                     Refresh All List
                 </Button>
             </Center>
-            <Center>
-                <Heading fontSize="lg" color="gray.700" fontWeight="bold" py={3}>
-                    Blockchain List
-                </Heading>
-            </Center>
-
-            {/* blockchain table */}
-            <TableContainer
-                // add horizonatal margin
-                mx={4}
-                my={4}
-            >
-                <Table variant='striped' size={"sm"}>
-                    <Thead >
-                        <Tr fontSize={"2xl"}>
-                            <Th>Name</Th>
-                            <Th>CID</Th>
-                            <Th>Check File</Th>
-
-                        </Tr>
-                    </Thead>
-
-                    <Tbody>
-                        {
-                            dataArray?.map(([string1, string2]) => (
-                                <Tr>
-                                    <Td>{string1}</Td>
-                                    <Td>
-                                        <Link
-                                            href={`${string2}`}
-                                            isExternal
-                                        >
-                                            {string2}
-                                        </Link>
-                                    </Td>
-                                    <Td>
-                                        {/* button which routes to href={`https://ipfs.io/ipfs/${file.cid}`} */}
-                                        <Button
-                                            as={Link}
-                                            href={`${string2}`}
-                                            colorScheme='teal'
-                                            size={"sm"}
-                                            target="_blank"
-                                        >
-                                            Check File
-                                        </Button>
-                                    </Td>
-                                </Tr>
-                            ))
-                        }
-                    </Tbody>
-                </Table>
-            </TableContainer>
 
             <Center>
                 <Heading fontSize="lg" color="gray.700" fontWeight="bold" py={3}>
@@ -230,7 +150,7 @@ function FileList({ contract, account, provider }) {
                     </Tbody>
                 </Table>
             </TableContainer>
-        </div>
+        </>
     );
 }
 
