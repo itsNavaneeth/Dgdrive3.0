@@ -25,7 +25,8 @@ function FileList({ contract, account, provider }) {
         setDataArray(dataArray2);
       }
     } catch (e) {
-      alert("You don't have access");
+      // alert("You don't have access");
+      console.log("Display Error: ", e)
     }
   }
   // end of blockchain code
