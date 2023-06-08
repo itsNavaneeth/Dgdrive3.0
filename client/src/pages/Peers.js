@@ -79,8 +79,10 @@ const Peers = ({ contract, account }) => {
             let access = false;
             peers.forEach(item2 => {
                 if (item1[1] === item2[0]) {
-                    access = true;
-                    return;
+                    if (item2[1] === true) {
+                        access = true;
+                        return;
+                    }
                 }
             });
             array3.push({
