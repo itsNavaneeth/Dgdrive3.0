@@ -6,8 +6,8 @@ import { Web3Storage } from 'web3.storage';
 function MyFiles({ contract, account, provider }) {
   const [dataArray, setDataArray] = useState([]);
 
-  const handleDownload = async (name, cid) => {
-    const response = await fetch(`http://143.110.246.230:8080/ipfs/${cid}`);
+  const handleDownload = async (name, dlink) => {
+    const response = await fetch(`${dlink}`);
     const blob = await response.blob();
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -34,7 +34,7 @@ function MyFiles({ contract, account, provider }) {
       // } else {
       dataArray2 = await contract.display(account);
       setDataArray(dataArray2);
-      console.log("fuckerrr: ", dataArray2);
+      console.log("dataArray2: ", dataArray2);
       // }
     } catch (e) {
       alert("You don't have access");
