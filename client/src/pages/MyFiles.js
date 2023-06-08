@@ -7,7 +7,7 @@ function MyFiles({ contract, account, provider }) {
   const [dataArray, setDataArray] = useState([]);
 
   const handleDownload = async (name, cid) => {
-    const response = await fetch(`https://ipfs.io/ipfs/${cid}/${name}`);
+    const response = await fetch(`http://143.110.246.230:8080/ipfs/${cid}`);
     const blob = await response.blob();
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -27,14 +27,15 @@ function MyFiles({ contract, account, provider }) {
     let dataArray2;
 
     try {
-      if (address) {
-        dataArray2 = await contract.display(address);
-        setDataArray(dataArray2);
-        console.log("da: ", dataArray2);
-      } else {
-        dataArray2 = await contract.display(account);
-        setDataArray(dataArray2);
-      }
+      // if (address) {
+      //   dataArray2 = await contract.display(address);
+      //   setDataArray(dataArray2);
+      //   console.log("da: ", dataArray2);
+      // } else {
+      dataArray2 = await contract.display(account);
+      setDataArray(dataArray2);
+      console.log("fuckerrr: ", dataArray2);
+      // }
     } catch (e) {
       alert("You don't have access");
     }

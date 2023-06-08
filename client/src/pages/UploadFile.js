@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Web3Storage } from 'web3.storage';
+import { create } from 'ipfs-http-client'
+import axios from 'axios'
 import {
     Button,
     AspectRatio,
@@ -124,6 +126,7 @@ const PreviewImage = forwardRef((props, ref) => {
 
 
 function UploadFile({ contract, account, provider }) {
+    const client = create({ url: "http://143.110.246.230:5001/api/v0" });
     const toast = useToast()
 
     const controls = useAnimation();
@@ -143,27 +146,62 @@ function UploadFile({ contract, account, provider }) {
 
     const handleUpload = async () => {
         setIsLoading(true);
+
+
+        const formData = new FormData();
+        formData.append('file', file);
+        console.log('Upload', file)
+
         try {
-            const storage = new Web3Storage({ token: process.env.REACT_APP_WEB3_STORAGE_TOKEN });
-            const cid = await storage.put([file], { name: file.name });
-            const fileMetadata = { name: file.name, size: file.size, cid: cid };
-            setFiles([...files, fileMetadata]);
+            const response = await axios.post('http://143.110.246.230:5001/api/v0/add', formData);
+            console.log('File uploaded successfully:', response.data);
+            // setFiles([...files, fileMetadata]);
             setError(null);
             setIsLoading(false);
-            const fileHash = `https://ipfs.io/ipfs/${cid}`
-            contract.add(account, file.name, fileHash);
+            const name = response.data.Name;
+            const cid = response.data.Hash;
+            const size = response.data.Size;
+            const fileMetadata = { name, size, cid };
+            setFiles([...files, fileMetadata]);
+            const fileHash = `http://143.110.246.230:8080/ipfs/${cid}`;
+            contract.add(account, name, fileHash);
+
             toast({
                 position: 'top',
                 title: 'File Uploaded Successfully',
                 status: 'success',
-                duration: 9000,
+                duration: 5000,
                 isClosable: true,
             })
         } catch (error) {
+            // console.log('Error uploading file:', error);
             setIsLoading(false);
             setError(error.message);
-
         }
+
+
+
+        // try {
+        //     const storage = new Web3Storage({ token: process.env.REACT_APP_WEB3_STORAGE_TOKEN });
+        //     const cid = await storage.put([file], { name: file.name });
+        //     const fileMetadata = { name: file.name, size: file.size, cid: cid };
+        //     setFiles([...files, fileMetadata]);
+        //     setError(null);
+        //     setIsLoading(false);
+        //     const fileHash = `https://ipfs.io/ipfs/${cid}`
+        //     contract.add(account, file.name, fileHash);
+        //     toast({
+        //         position: 'top',
+        //         title: 'File Uploaded Successfully',
+        //         status: 'success',
+        //         duration: 9000,
+        //         isClosable: true,
+        //     })
+        // } catch (error) {
+        //     setIsLoading(false);
+        //     setError(error.message);
+
+        // }
     };
 
     return (
@@ -303,7 +341,7 @@ function UploadFile({ contract, account, provider }) {
                                                 <Td>{file.name}</Td>
                                                 <Td>
                                                     <Link
-                                                        href={`https://ipfs.io/ipfs/${file.cid}`}
+                                                        href={`http://143.110.246.230:8080/ipfs/${file.cid}`}
                                                         isExternal
                                                     >
                                                         {file.cid}
@@ -314,7 +352,7 @@ function UploadFile({ contract, account, provider }) {
                                                     {/* button which routes to href={`https://ipfs.io/ipfs/${file.cid}`} */}
                                                     <Button
                                                         as={Link}
-                                                        href={`https://ipfs.io/ipfs/${file.cid}`}
+                                                        href={`http://143.110.246.230:8080/ipfs/${file.cid}`}
                                                         colorScheme='teal'
                                                         size={"sm"}
                                                         target="_blank"
