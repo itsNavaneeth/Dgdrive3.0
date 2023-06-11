@@ -50,11 +50,16 @@ function SharedFiles({ contract, account, provider }) {
             colorScheme="yellow"
             mt={4}
             onClick={getdata}
+            color='white'
+            bgGradient='linear(to-r, red.500, yellow.500)'
+            _hover={{
+              bgGradient: 'linear(to right, #cc2b5e, #753a88)',
+            }}
           >
             Get Data
           </Button>
         </FormControl>
-      </Box>
+      </Box >
 
       <Center>
         <Heading fontSize="lg" color="gray.700" fontWeight="bold" py={3}>

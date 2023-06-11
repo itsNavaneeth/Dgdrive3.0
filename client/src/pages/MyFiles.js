@@ -54,6 +54,11 @@ function MyFiles({ contract, account, provider }) {
           colorScheme="cyan"
           mt={4}
           onClick={getdata}
+          color='white'
+          bgGradient='linear(to-r, teal.500, green.500)'
+          _hover={{
+            bgGradient: 'linear(to-r, red.500, yellow.500)',
+          }}
         >
           Refresh
         </Button>

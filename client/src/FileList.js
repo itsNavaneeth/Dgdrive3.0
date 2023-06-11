@@ -46,7 +46,13 @@ function FileList({ contract, account, provider }) {
     return (
         <>
             <Center>
-                <Button onClick={fetchFiles} colorScheme='teal' mx={3}>
+                <Button onClick={fetchFiles} colorScheme='teal' mx={3}
+                    color='white'
+                    bgGradient='linear(to-r, teal.500, green.500)'
+                    _hover={{
+                        bgGradient: 'linear(to-r, red.500, yellow.500)',
+                    }}
+                >
                     Refresh All List
                 </Button>
             </Center>

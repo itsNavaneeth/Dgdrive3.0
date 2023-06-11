@@ -76,7 +76,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
           style={{ textDecoration: 'none' }}
         // to="/"
         >
-          <Text decoration="none" fontSize="lg" fontFamily={'Open Sans'} fontWeight="medium">
+          <Text decoration="none" fontSize="lg" fontFamily={'Open Sans'} fontWeight="bold" bgGradient='linear(to-l, #7928CA, #FF0080)' bgClip='text'>
             K R Y P T O N
           </Text>
         </Link>
@@ -93,7 +93,8 @@ const SidebarContent = ({ onClose, ...rest }) => {
 
 const NavItem = ({ to, icon, children, isActive, ...rest }) => {
   const activeStyles = {
-    bg: '#1A1F37',
+    // bg: '#40128B',
+    bgGradient: 'linear(to right, #ff00cc, #333399)',
     color: 'white',
   };
   const hoverStyles = {
