@@ -55,10 +55,14 @@ export default function SidebarWithHeader({
 
 const SidebarContent = ({ onClose, ...rest }) => {
   const pa = useLocation();
+  let sidebarBg =
+    "linear-gradient(111.84deg, rgba(6, 11, 38, 0.94) 59.3%, rgba(26, 31, 55, 0) 100%)";
   return (
     <Box
       transition="3s ease"
-      bg={useColorModeValue('white', 'gray.900')}
+      // bg={useColorModeValue('white', 'gray.900')}
+      bg={sidebarBg}
+      backdropFilter='blur(10px)'
       borderRight="1px"
       borderRightColor={useColorModeValue('gray.200', 'gray.700')}
       w={{ base: 'full', md: 60 }}
@@ -72,8 +76,8 @@ const SidebarContent = ({ onClose, ...rest }) => {
           style={{ textDecoration: 'none' }}
         // to="/"
         >
-          <Text decoration="none" fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-            Krypton
+          <Text decoration="none" fontSize="lg" fontFamily={'Open Sans'} fontWeight="medium">
+            K R Y P T O N
           </Text>
         </Link>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
@@ -89,11 +93,11 @@ const SidebarContent = ({ onClose, ...rest }) => {
 
 const NavItem = ({ to, icon, children, isActive, ...rest }) => {
   const activeStyles = {
-    bg: 'purple.600',
+    bg: '#1A1F37',
     color: 'white',
   };
   const hoverStyles = {
-    bg: 'gray.800',
+    bg: '#1A1F37',
     color: 'white',
   };
   return (
@@ -106,7 +110,7 @@ const NavItem = ({ to, icon, children, isActive, ...rest }) => {
         align="center"
         p="4"
         mx="4"
-        borderRadius="lg"
+        borderRadius='15px'
         role="group"
         cursor="pointer"
         _hover={hoverStyles}
