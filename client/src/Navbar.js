@@ -93,8 +93,8 @@ const SidebarContent = ({ onClose, ...rest }) => {
 
 const NavItem = ({ to, icon, children, isActive, ...rest }) => {
   const activeStyles = {
-    // bg: '#40128B',
-    bgGradient: 'linear(to right, #ff00cc, #333399)',
+    bg: '#40128B',
+    // bgGradient: 'linear(to right, #ff00cc, #333399)',
     color: 'white',
   };
   const hoverStyles = {

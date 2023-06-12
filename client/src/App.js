@@ -1,4 +1,5 @@
-import { ChakraProvider, ColorModeScript } from '@chakra-ui/react';
+import { ChakraProvider } from '@chakra-ui/react';
+import { useToast } from '@chakra-ui/react'
 import { ethers } from "ethers";
 import React, { useEffect, useState, useNavigation } from 'react';
 import './App.css';
@@ -27,13 +28,11 @@ function App() {
   const [Accounts, setAccounts] = useState([]);
   const [contract, setContract] = useState(null);
   const [provider, setProvider] = useState(null);
-  const [modalOpen, setModalOpen] = useState(false);
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const prov = new ethers.providers.Web3Provider(window.ethereum);
+  const toast = useToast();
 
   useEffect(() => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
-
+    
     const loadProvider = async () => {
       if (provider) {
         window.ethereum.on("chainChanged", () => {
@@ -61,8 +60,14 @@ function App() {
         setContract(contract);
         setProvider(provider);
       } else {
-        console.error("Metamask is not installed");
-        alert("Metamask is not installed");
+        toast({
+          title: "No provider found",
+          description: "Please install an Ethereum-compatible browser or extension like MetaMask to use this dApp!",
+          status: "error",
+          position: 'top',
+          duration: 5000,
+          isClosable: true,
+        });
       }
     };
     provider && loadProvider();
@@ -93,22 +98,6 @@ function App() {
           <Route path="about" element={<About />} />
         </Route>
 
-        {/* <Layout>
-          <UploadFile
-            account={account}
-            provider={provider}
-            contract={contract}
-          />
-
-          <Share contract={contract} />
-          <Display contract={contract} account={account}></Display>
-
-          <FileList
-            provider={provider}
-            contract={contract}
-            account={account}
-          />
-        </Layout> */}
       </Routes>
     </ChakraProvider>
   );

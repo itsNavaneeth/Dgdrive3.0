@@ -1,11 +1,11 @@
-import { Box, FormControl, FormLabel, Input, Hide, Show, Button, Center, Heading, Link, Skeleton, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
+import { Box, Button, Center, Heading, Link, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import { Web3Storage } from 'web3.storage';
+import {useToast} from '@chakra-ui/react';
 
 
 function MyFiles({ contract, account, provider }) {
   const [dataArray, setDataArray] = useState([]);
-
+  const toast  = useToast();
   const handleDownload = async (name, dlink) => {
     const response = await fetch(`${dlink}`);
     const blob = await response.blob();
@@ -37,10 +37,17 @@ function MyFiles({ contract, account, provider }) {
       console.log("dataArray2: ", dataArray2);
       // }
     } catch (e) {
-      alert("You don't have access");
+      toast({
+        title: "Permission Error",
+        description: "You dont have access",
+        status: "warning",
+        position: 'top',
+        duration: 5000,
+        isClosable: true,
+      })
+
     }
   }
-  // end of blockchain code
 
   useEffect(() => {
     getdata();
@@ -54,11 +61,11 @@ function MyFiles({ contract, account, provider }) {
           colorScheme="cyan"
           mt={4}
           onClick={getdata}
-          color='white'
-          bgGradient='linear(to-r, teal.500, green.500)'
-          _hover={{
-            bgGradient: 'linear(to-r, red.500, yellow.500)',
-          }}
+          // color='white'
+          // bgGradient='linear(to-r, teal.500, green.500)'
+          // _hover={{
+          //   bgGradient: 'linear(to-r, red.500, yellow.500)',
+          // }}
         >
           Refresh
         </Button>

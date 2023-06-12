@@ -114,11 +114,11 @@ const Peers = ({ contract, account }) => {
                 <Button
                     onClick={handleOpenModal}
                     colorScheme="purple"
-                    color='white'
-                    bgGradient='linear(to right, #cc2b5e, #753a88)'
-                    _hover={{
-                        bgGradient: 'linear(to-r, red.500, yellow.500)',
-                    }}
+                    // color='white'
+                    // bgGradient='linear(to right, #cc2b5e, #753a88)'
+                    // _hover={{
+                    //     bgGradient: 'linear(to-r, red.500, yellow.500)',
+                    // }}
                 >
                     Share Files
                 </Button>
@@ -128,11 +128,11 @@ const Peers = ({ contract, account }) => {
                 mx="4"
                 onClick={showPeers}
                 colorScheme="yellow"
-                color='white'
-                bgGradient='linear(to-r, red.500, yellow.500)'
-                _hover={{
-                    bgGradient: 'linear(to right, #cc2b5e, #753a88)',
-                }}
+                // color='white'
+                // bgGradient='linear(to-r, red.500, yellow.500)'
+                // _hover={{
+                //     bgGradient: 'linear(to right, #cc2b5e, #753a88)',
+                // }}
             >
                 Peers
             </Button>

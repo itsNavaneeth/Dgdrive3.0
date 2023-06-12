@@ -1,11 +1,11 @@
 import { Box, FormControl, FormLabel, Input, Button, Center, Heading, Link, Skeleton, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import { Web3Storage } from 'web3.storage';
+import {useToast} from '@chakra-ui/react';
 
 
 function SharedFiles({ contract, account, provider }) {
   const [dataArray, setDataArray] = useState([]);
-
+  const toast  = useToast();
   // blockchain code
   const [address, setAddress] = useState("");
   const handleAddressChange = (event) => {
@@ -25,7 +25,14 @@ function SharedFiles({ contract, account, provider }) {
         setDataArray(dataArray2);
       }
     } catch (e) {
-      alert("You don't have access");
+      toast({
+        title: "Permission Error",
+        description: "You dont have access",
+        status: "error",
+        position: 'top',
+        duration: 5000,
+        isClosable: true,
+      })
     }
   }
   // end of blockchain code
@@ -50,11 +57,11 @@ function SharedFiles({ contract, account, provider }) {
             colorScheme="yellow"
             mt={4}
             onClick={getdata}
-            color='white'
-            bgGradient='linear(to-r, red.500, yellow.500)'
-            _hover={{
-              bgGradient: 'linear(to right, #cc2b5e, #753a88)',
-            }}
+            // color='white'
+            // bgGradient='linear(to-r, red.500, yellow.500)'
+            // _hover={{
+            //   bgGradient: 'linear(to right, #cc2b5e, #753a88)',
+            // }}
           >
             Get Data
           </Button>
