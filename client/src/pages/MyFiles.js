@@ -1,11 +1,27 @@
-import { Box, Button, Center, Heading, Link, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Input,
+  Center,
+  Heading,
+  Link,
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+} from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import {useToast} from '@chakra-ui/react';
-
+import { useToast } from '@chakra-ui/react';
 
 function MyFiles({ contract, account, provider }) {
   const [dataArray, setDataArray] = useState([]);
-  const toast  = useToast();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredArray, setFilteredArray] = useState([]);
+  const toast = useToast();
+
   const handleDownload = async (name, dlink) => {
     const response = await fetch(`${dlink}`);
     const blob = await response.blob();
@@ -18,55 +34,52 @@ function MyFiles({ contract, account, provider }) {
   };
 
   // blockchain code
-  const [address, setAddress] = useState("");
-  const handleAddressChange = (event) => {
-    setAddress(event.target.value);
-  };
-
+  const [address, setAddress] = useState('');
+  
   const getdata = async () => {
     let dataArray2;
 
     try {
-      // if (address) {
-      //   dataArray2 = await contract.display(address);
-      //   setDataArray(dataArray2);
-      //   console.log("da: ", dataArray2);
-      // } else {
-      dataArray2 = await contract.display(account);
+      if (address) {
+        dataArray2 = await contract.display(address);
+      } else {
+        dataArray2 = await contract.display(account);
+      }
+
       setDataArray(dataArray2);
-      console.log("dataArray2: ", dataArray2);
-      // }
     } catch (e) {
       toast({
-        title: "Permission Error",
-        description: "You dont have access",
-        status: "warning",
+        title: 'Permission Error',
+        description: 'You dont have access',
+        status: 'warning',
         position: 'top',
         duration: 5000,
         isClosable: true,
-      })
-
+      });
     }
-  }
+  };
 
   useEffect(() => {
     getdata();
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    const filtered = dataArray.filter(([string1]) =>
+      string1.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredArray(filtered);
+  }, [dataArray, searchQuery]);
 
   return (
     <>
       <Box p={4}>
-        {/* add a formcotnrol  */}
-        <Button
-          colorScheme="cyan"
-          mt={4}
-          onClick={getdata}
-          // color='white'
-          // bgGradient='linear(to-r, teal.500, green.500)'
-          // _hover={{
-          //   bgGradient: 'linear(to-r, red.500, yellow.500)',
-          // }}
-        >
+        <Input
+          placeholder="Search for file names !!!!"
+          onChange={(e) => setSearchQuery(e.target.value)}
+          mb={4}
+        />
+
+        <Button colorScheme="cyan" mt={4} onClick={getdata}>
           Refresh
         </Button>
       </Box>
@@ -78,59 +91,48 @@ function MyFiles({ contract, account, provider }) {
       </Center>
 
       {/* blockchain table */}
-      <TableContainer
-        // add horizonatal margin
-        mx={4}
-        my={4}
-      >
-        <Table variant='striped' size={"sm"}>
-          <Thead >
-            <Tr fontSize={"2xl"}>
+      <TableContainer mx={4} my={4}>
+        <Table variant="striped" size="sm">
+          <Thead>
+            <Tr fontSize="2xl">
               <Th>Name</Th>
               <Th>CID</Th>
               <Th>Check File</Th>
               <Th>Download</Th>
-
             </Tr>
           </Thead>
 
           <Tbody>
-            {
-              dataArray?.map(([string1, string2], index) => (
-                <Tr key={index}>
-                  <Td>{string1}</Td>
-                  <Td>
-                    <Link
-                      href={`${string2}`}
-                      isExternal
-                    >
-                      {string2}
-                    </Link>
-                  </Td>
-                  <Td>
-                    {/* button which routes to href={`https://ipfs.io/ipfs/${file.cid}`} */}
-                    <Button
-                      as={Link}
-                      href={`${string2}`}
-                      colorScheme='teal'
-                      size={"sm"}
-                      target="_blank"
-                    >
-                      Check File
-                    </Button>
-                  </Td>
-                  <Td>
-                    <Button
-                      onClick={() => handleDownload(string1, string2)}
-                      colorScheme='blue'
-                      size='sm'
-                    >
-                      Download
-                    </Button>
-                  </Td>
-                </Tr>
-              ))
-            }
+            {filteredArray.map(([string1, string2], index) => (
+              <Tr key={index}>
+                <Td>{string1}</Td>
+                <Td>
+                  <Link href={`${string2}`} isExternal>
+                    {string2}
+                  </Link>
+                </Td>
+                <Td>
+                  <Button
+                    as={Link}
+                    href={`${string2}`}
+                    colorScheme="teal"
+                    size="sm"
+                    target="_blank"
+                  >
+                    Check File
+                  </Button>
+                </Td>
+                <Td>
+                  <Button
+                    onClick={() => handleDownload(string1, string2)}
+                    colorScheme="blue"
+                    size="sm"
+                  >
+                    Download
+                  </Button>
+                </Td>
+              </Tr>
+            ))}
           </Tbody>
         </Table>
       </TableContainer>
