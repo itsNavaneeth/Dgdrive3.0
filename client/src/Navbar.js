@@ -8,7 +8,7 @@ import { BsFillMoonFill } from 'react-icons/bs';
 import { BsFiles, BsFillPeopleFill } from 'react-icons/bs';
 import { FaShareAlt, FaServer } from 'react-icons/fa';
 import { AiOutlinePlus } from 'react-icons/ai';
-import { MdInfo } from 'react-icons/md';
+import { MdInfo, MdPrivacyTip } from 'react-icons/md';
 import { TiPlus } from 'react-icons/ti';
 import { Link as Navlink, Outlet, useLocation } from "react-router-dom"
 
@@ -17,8 +17,9 @@ const LinkItems = [
   { name: 'Upload', icon: TiPlus, to: "/upload" },
   { name: 'My Files', icon: FaServer, to: "/my-files" },
   { name: 'Shared With Me', icon: FaShareAlt, to: "/shared-files" },
-  { name: 'My Peers', icon: BsFillPeopleFill, to: "my-peers" },
-  { name: 'About', icon: MdInfo, to: "about" },
+  { name: 'My Peers', icon: BsFillPeopleFill, to: "/my-peers" },
+  { name: 'File Integrity', icon: MdPrivacyTip, to: "/file-integrity" },
+  { name: 'About', icon: MdInfo, to: "/about" },
 ];
 
 export default function SidebarWithHeader({

@@ -22,6 +22,7 @@ import MyFiles from './pages/MyFiles';
 import SharedFiles from './pages/SharedFiles';
 import Peers from './pages/Peers';
 import About from './pages/About';
+import Integrity from './pages/Integrity';
 
 function App() {
   const [account, setAccount] = useState("");
@@ -32,7 +33,7 @@ function App() {
 
   useEffect(() => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
-    
+
     const loadProvider = async () => {
       if (provider) {
         window.ethereum.on("chainChanged", () => {
@@ -84,17 +85,13 @@ function App() {
       }
     })}>
       <Routes>
-        <Route path="/" element={<Navbar />}>
-          <Route path="upload" element={
-            <UploadFile
-              account={account}
-              provider={provider}
-              contract={contract}
-            />} />
+        <Route path="/" element={<Navbar account={account} />}>
+          <Route path="upload" element={<UploadFile account={account} provider={provider} contract={contract} />} />
           <Route path="" element={<Dashboard />} />
           <Route path="my-files" element={<MyFiles contract={contract} account={account} />} />
           <Route path="shared-files" element={<SharedFiles contract={contract} account={account} />} />
           <Route path="my-peers" element={<Peers contract={contract} account={account} />} />
+          <Route path="file-integrity" element={<Integrity account={account} provider={provider} contract={contract} />} />
           <Route path="about" element={<About />} />
         </Route>
 

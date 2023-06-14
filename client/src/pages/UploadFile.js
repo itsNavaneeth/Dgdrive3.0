@@ -203,8 +203,8 @@ function UploadFile({ contract, account, provider }) {
 
         // }
     };
-    let sidebarBg =
-        "linear-gradient(111.84deg, rgba(6, 11, 38, 0.94) 59.3%, rgba(26, 31, 55, 0) 100%)";
+    // let sidebarBg =
+    //     "linear-gradient(111.84deg, rgba(6, 11, 38, 0.94) 59.3%, rgba(26, 31, 55, 0) 100%)";
 
     return (
         <>
@@ -212,8 +212,8 @@ function UploadFile({ contract, account, provider }) {
                 // backgroundImage="background-body-admin.png"
                 // backgroundSize="cover"
                 // backgroundPosition="center"
-                bg={sidebarBg}
-                bgGradient='linear(111.84deg, rgba(6, 11, 38, 0.94) 59.3%, rgba(26, 31, 55, 0) 100%)'
+                // bg={sidebarBg}
+                // bgGradient='linear(111.84deg, rgba(6, 11, 38, 0.94) 59.3%, rgba(26, 31, 55, 0) 100%)'
                 height="100vh"
             // opacity={0.75}
             >
