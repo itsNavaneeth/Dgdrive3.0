@@ -57,7 +57,7 @@ function Integrity({ contract, account, provider }) {
         if (file1CID === "" || file2CID === "") {
             toast({
                 position: 'bottom',
-                title: 'Please upload both files and check',
+                title: 'Please upload both files and check please.',
                 status: 'warning',
                 duration: 3000,
                 isClosable: true,
@@ -441,7 +441,7 @@ function Integrity({ contract, account, provider }) {
                     <Center>
                         <Button
                             onClick={handleIntegrity} colorScheme='teal'
-                            color='white'
+                            color='black'
                         >
                             Upload File
                         </Button>

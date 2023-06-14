@@ -53,10 +53,10 @@ export default function CardPeer({ peer, contract, account }) {
                             size={"md"}
                             // mt={8}
                             // color="white"
-                            colorScheme={peer.access ? "whatsapp" : "red"}
+                            colorScheme={peer?.id === account ? "whatsapp" : (peer.access ? "whatsapp" : "red")}
                             rounded={'md'}>
                             {
-                                peer.access ? "Has access" : "No access"
+                                peer?.id === account ? "Has access" : (peer.access ? "Has access" : "No access")
                             }
                         </Button>
 

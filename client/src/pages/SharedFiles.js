@@ -1,11 +1,11 @@
 import { Box, FormControl, FormLabel, Input, Button, Center, Heading, Link, Skeleton, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import {useToast} from '@chakra-ui/react';
+import { useToast } from '@chakra-ui/react';
 
 
 function SharedFiles({ contract, account, provider }) {
   const [dataArray, setDataArray] = useState([]);
-  const toast  = useToast();
+  const toast = useToast();
   // blockchain code
   const [address, setAddress] = useState("");
   const handleAddressChange = (event) => {
@@ -57,11 +57,11 @@ function SharedFiles({ contract, account, provider }) {
             colorScheme="yellow"
             mt={4}
             onClick={getdata}
-            // color='white'
-            // bgGradient='linear(to-r, red.500, yellow.500)'
-            // _hover={{
-            //   bgGradient: 'linear(to right, #cc2b5e, #753a88)',
-            // }}
+          // color='white'
+          // bgGradient='linear(to-r, red.500, yellow.500)'
+          // _hover={{
+          //   bgGradient: 'linear(to right, #cc2b5e, #753a88)',
+          // }}
           >
             Get Data
           </Button>
@@ -69,7 +69,7 @@ function SharedFiles({ contract, account, provider }) {
       </Box >
 
       <Center>
-        <Heading fontSize="lg" color="gray.700" fontWeight="bold" py={3}>
+        <Heading fontSize="lg" color="grey.100" fontWeight="bold" py={3}>
           Shared With Me
         </Heading>
       </Center>

@@ -35,7 +35,7 @@ function MyFiles({ contract, account, provider }) {
 
   // blockchain code
   const [address, setAddress] = useState('');
-  
+
   const getdata = async () => {
     let dataArray2;
 
@@ -85,8 +85,8 @@ function MyFiles({ contract, account, provider }) {
       </Box>
 
       <Center>
-        <Heading fontSize="lg" color="gray.700" fontWeight="bold" py={3}>
-          Blockchain List
+        <Heading fontSize="lg" color="grey.100" fontWeight="bold" py={3}>
+          My Files
         </Heading>
       </Center>
 
