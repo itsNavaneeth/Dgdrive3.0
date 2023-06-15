@@ -179,7 +179,7 @@ function Integrity({ contract, account, provider }) {
                                     fontWeight="bold"
                                     mb="8"
                                 >
-                                    Upload File 1
+                                    Upload Original File
                                 </Text>
                             </Center>
 
@@ -311,7 +311,7 @@ function Integrity({ contract, account, provider }) {
                                     fontWeight="bold"
                                     mb="8"
                                 >
-                                    Upload File 2
+                                    Upload Another File
                                 </Text>
                             </Center>
 
