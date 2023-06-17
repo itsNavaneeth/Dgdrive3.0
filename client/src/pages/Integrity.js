@@ -57,7 +57,7 @@ function Integrity({ contract, account, provider }) {
         if (file1CID === "" || file2CID === "") {
             toast({
                 position: 'bottom',
-                title: 'Please upload both files and check please.',
+                title: 'Please upload both files and check.',
                 status: 'warning',
                 duration: 3000,
                 isClosable: true,
@@ -175,11 +175,18 @@ function Integrity({ contract, account, provider }) {
                             <Center>
                                 <Text
                                     fontSize="lg"
-                                    fontFamily="monospace"
                                     fontWeight="bold"
                                     mb="8"
                                 >
                                     Upload Original File
+                                </Text>
+                            </Center>
+                            <Center>
+                                <Text
+                                    fontSize="sm"
+                                    mb="8"
+                                >
+                                    Instruction: Please upload the original file you want to compare.
                                 </Text>
                             </Center>
 
@@ -307,11 +314,20 @@ function Integrity({ contract, account, provider }) {
                             <Center>
                                 <Text
                                     fontSize="lg"
-                                    fontFamily="monospace"
                                     fontWeight="bold"
+                                    mb="4"
+                                >
+                                    Upload a File for Comparison
+                                </Text>
+                            </Center>
+
+                            <Center>
+                                <Text
+                                    fontSize="sm"
+                                    // fontWeight="normal"
                                     mb="8"
                                 >
-                                    Upload Another File
+                                    Instruction: Please upload a file that you want to compare with the original file. It can be the same file or a potentially modified version.
                                 </Text>
                             </Center>
 
@@ -443,7 +459,7 @@ function Integrity({ contract, account, provider }) {
                             onClick={handleIntegrity} colorScheme='teal'
                             color='black'
                         >
-                            Upload File
+                            Check Integrity
                         </Button>
                     </Center>
                 </Container>
